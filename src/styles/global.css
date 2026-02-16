@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+/*
+ * Work On Yourself — Brand Palette
+ *
+ * A contemplative, premium aesthetic for soul care.
+ * Deep slate grounds the design. Warm amber/gold accents
+ * convey warmth and invitation. Generous whitespace
+ * reflects the margin this work creates in leaders' lives.
+ *
+ * Fonts:
+ *   - Cormorant Garamond — editorial headings (serif)
+ *   - Source Sans 3 — clean body text (sans-serif)
+ */
+
+@theme {
+	/* Brand colors */
+	--color-slate-deep: #1e293b;
+	--color-slate-mid: #334155;
+	--color-slate-soft: #64748b;
+	--color-warm-50: #fefcf8;
+	--color-warm-100: #fdf6e9;
+	--color-warm-200: #f5e6c8;
+	--color-amber-accent: #d4a574;
+	--color-amber-deep: #b8845a;
+	--color-cream: #faf8f4;
+
+	/* Typography */
+	--font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+	--font-body: 'Source Sans 3', 'Segoe UI', Roboto, sans-serif;
+
+	/* Spacing scale */
+	--spacing-section: 6rem;
+	--spacing-section-sm: 4rem;
+}
