@@ -17,3 +17,18 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Media files — use Cloudflare R2 instead
+*.jpg
+*.JPG
+*.jpeg
+*.JPEG
+*.png
+*.PNG
+*.gif
+*.webp
+*.heic
+*.HEIC
+*.mp4
+*.mov
+*.mp3
