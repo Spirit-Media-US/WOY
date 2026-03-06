@@ -1,0 +1,20 @@
+export default {
+  name: 'siteSettings',
+  title: 'Site Settings',
+  type: 'document',
+  __experimental_actions: ['update', 'publish'],
+  fields: [
+    { name: 'siteName', title: 'Site Name', type: 'string' },
+    { name: 'tagline', title: 'Tagline', type: 'string' },
+    { name: 'heroHeadline', title: 'Hero Headline', type: 'string' },
+    { name: 'heroSubtext', title: 'Hero Subtext', type: 'text' },
+    { name: 'heroImage', title: 'Hero Image', type: 'image', options: { hotspot: true } },
+    { name: 'aboutKevin', title: 'About Kevin (for WOY)', type: 'array', of: [{ type: 'block' }] },
+    { name: 'kevinPhoto', title: 'Kevin Photo', type: 'image', options: { hotspot: true } },
+    { name: 'email', title: 'Contact Email', type: 'string' },
+    { name: 'applicationUrl', title: 'Application / Begin Conversation URL', type: 'url' },
+    { name: 'facebook', title: 'Facebook URL', type: 'url' },
+    { name: 'instagram', title: 'Instagram URL', type: 'url' },
+    { name: 'youtube', title: 'YouTube URL', type: 'url' },
+  ],
+}
