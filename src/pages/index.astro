@@ -1,8 +1,45 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { sanityClient } from '@/lib/sanity';
+import { PortableText } from 'astro-portabletext';
+
+// Fetch site settings
+const siteSettingsQuery = `*[_type == "siteSettings"][0] {
+  siteName,
+  tagline,
+  heroHeadline,
+  heroSubtext,
+  heroImage,
+  aboutKevin,
+  kevinPhoto,
+  email,
+  applicationUrl,
+  facebook,
+  instagram,
+  youtube
+}`;
+
+const testimonialQuery = `*[_type == "testimonial"] | order(order asc, _createdAt desc) {
+  _id,
+  quote,
+  name,
+  role,
+  photo,
+  featured,
+  order
+}`;
+
+const siteSettings = await sanityClient.fetch(siteSettingsQuery);
+const testimonials = await sanityClient.fetch(testimonialQuery);
+
+const title = siteSettings?.siteName || "Work On Yourself";
+const heroHeadline = siteSettings?.heroHeadline || "Work On Yourself";
+const heroSubtext = siteSettings?.heroSubtext || "A formation-centered Soul Care Intensive for leaders whose outer success has outpaced their inner life.";
+const email = siteSettings?.email || "kevin@workonyourself.com";
+const applicationUrl = siteSettings?.applicationUrl || `mailto:${email}`;
 ---
 
-<Layout title="Work On Yourself">
+<Layout title={title}>
 	<main class="flex min-h-screen flex-col items-center justify-center px-6 text-center">
 		<div class="max-w-2xl">
 			<!-- Mark -->
@@ -20,33 +57,64 @@ import Layout from '@/layouts/Layout.astro';
 			<h1
 				class="font-[--font-heading] text-4xl font-medium tracking-tight text-[--color-slate-deep] sm:text-5xl md:text-6xl"
 			>
-				Work On Yourself
+				{heroHeadline}
 			</h1>
 
 			<!-- Tagline -->
 			<p class="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[--color-slate-soft] sm:text-xl">
-				A formation-centered Soul Care Intensive for leaders whose outer success has outpaced
-				their inner life.
+				{heroSubtext}
 			</p>
 
 			<!-- Divider -->
 			<div class="mx-auto my-10 h-px w-24 bg-[--color-amber-accent]/40"></div>
 
 			<!-- Description -->
-			<p class="mx-auto max-w-md text-base leading-relaxed text-[--color-slate-soft]">
-				Pastorally stewarded. Relationally grounded. Theologically centered on restoration to
-				God as Father.
-			</p>
+			{siteSettings?.aboutKevin ? (
+				<div class="mx-auto max-w-md text-base leading-relaxed text-[--color-slate-soft] prose prose-sm">
+					<PortableText value={siteSettings.aboutKevin} />
+				</div>
+			) : (
+				<p class="mx-auto max-w-md text-base leading-relaxed text-[--color-slate-soft]">
+					Pastorally stewarded. Relationally grounded. Theologically centered on restoration to
+					God as Father.
+				</p>
+			)}
 
 			<!-- Contact -->
 			<div class="mt-12">
 				<a
-					href="mailto:kevin@workonyourself.com"
+					href={applicationUrl}
 					class="inline-block border-b border-[--color-amber-accent]/50 pb-0.5 text-sm font-semibold uppercase tracking-widest text-[--color-amber-deep] transition-colors hover:border-[--color-amber-accent] hover:text-[--color-amber-accent]"
 				>
 					Begin the Conversation
 				</a>
 			</div>
+
+			<!-- Testimonials Section -->
+			{testimonials && testimonials.length > 0 && (
+				<div class="mt-20">
+					<h2 class="font-[--font-heading] text-2xl font-medium text-[--color-slate-deep] mb-8">
+						Voices of Transformation
+					</h2>
+					<div class="space-y-8 max-w-xl mx-auto">
+						{testimonials.slice(0, 3).map((testimonial: any) => (
+							<blockquote class="border-l-2 border-[--color-amber-accent]/40 pl-6">
+								<p class="text-base italic leading-relaxed text-[--color-slate-soft] mb-4">
+									"{testimonial.quote}"
+								</p>
+								<footer class="text-sm font-semibold text-[--color-slate-deep]">
+									— {testimonial.name}
+									{testimonial.role && (
+										<span class="block text-xs text-[--color-slate-soft] font-normal">
+											{testimonial.role}
+										</span>
+									)}
+								</footer>
+							</blockquote>
+						))}
+					</div>
+				</div>
+			)}
 
 			<!-- Footer -->
 			<p class="mt-16 text-xs tracking-wide text-[--color-slate-soft]/60">
