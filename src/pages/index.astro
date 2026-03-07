@@ -1,18 +1,21 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { sanityClient } from '@/lib/sanity';
+import Layout from '../layouts/Layout.astro';
+import { sanityClient } from '../lib/sanity';
 import { PortableText } from 'astro-portabletext';
 
 // Fetch site settings
 const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   siteName,
   tagline,
+  defaultMetaDescription,
+  companyLegalName,
   heroHeadline,
   heroSubtext,
   heroImage,
   aboutKevin,
   kevinPhoto,
   email,
+  phone,
   applicationUrl,
   facebook,
   instagram,
@@ -33,13 +36,15 @@ const siteSettings = await sanityClient.fetch(siteSettingsQuery);
 const testimonials = await sanityClient.fetch(testimonialQuery);
 
 const title = siteSettings?.siteName || "Work On Yourself";
+const description = siteSettings?.defaultMetaDescription || "A formation-centered Soul Care Intensive for leaders whose outer success has outpaced their inner life.";
 const heroHeadline = siteSettings?.heroHeadline || "Work On Yourself";
 const heroSubtext = siteSettings?.heroSubtext || "A formation-centered Soul Care Intensive for leaders whose outer success has outpaced their inner life.";
-const email = siteSettings?.email || "kevin@workonyourself.com";
+const email = siteSettings?.email || "contact@workonyourself.com";
 const applicationUrl = siteSettings?.applicationUrl || `mailto:${email}`;
+const companyLegalName = siteSettings?.companyLegalName || "Work on Yourself LLC";
 ---
 
-<Layout title={title}>
+<Layout title={title} description={description}>
 	<main class="flex min-h-screen flex-col items-center justify-center px-6 text-center">
 		<div class="max-w-2xl">
 			<!-- Mark -->
@@ -118,7 +123,7 @@ const applicationUrl = siteSettings?.applicationUrl || `mailto:${email}`;
 
 			<!-- Footer -->
 			<p class="mt-16 text-xs tracking-wide text-[--color-slate-soft]/60">
-				&copy; {new Date().getFullYear()} Work on Yourself LLC
+				&copy; {new Date().getFullYear()} {companyLegalName}
 			</p>
 		</div>
 	</main>
