@@ -35,3 +35,5 @@ Thumbs.db
 
 # Sanity studio build artifacts
 .sanity/runtime/
+
+CLAUDE.md
