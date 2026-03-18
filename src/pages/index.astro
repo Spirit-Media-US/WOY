@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { sanityClient } from '../lib/sanity';
+import { sanityClient, urlFor } from '../lib/sanity';
 import { PortableText } from 'astro-portabletext';
 
 // Fetch site settings
@@ -42,11 +42,24 @@ const heroSubtext = siteSettings?.heroSubtext || "A formation-centered Soul Care
 const email = siteSettings?.email || "contact@workonyourself.com";
 const applicationUrl = siteSettings?.applicationUrl || `mailto:${email}`;
 const companyLegalName = siteSettings?.companyLegalName || "Work on Yourself LLC";
+const heroImageUrl = siteSettings?.heroImage ? urlFor(siteSettings.heroImage).url() : null;
+const kevinPhotoUrl = siteSettings?.kevinPhoto ? urlFor(siteSettings.kevinPhoto).url() : null;
 ---
 
 <Layout title={title} description={description}>
 	<main class="flex min-h-screen flex-col items-center justify-center px-6 text-center">
 		<div class="max-w-2xl">
+			<!-- Hero Image -->
+			{heroImageUrl && (
+				<div class="mb-8 rounded-lg overflow-hidden shadow-lg">
+					<img 
+						src={heroImageUrl} 
+						alt={heroHeadline}
+						class="w-full h-auto object-cover"
+					/>
+				</div>
+			)}
+
 			<!-- Mark -->
 			<div class="mb-12">
 				<div
@@ -83,6 +96,19 @@ const companyLegalName = siteSettings?.companyLegalName || "Work on Yourself LLC
 					Pastorally stewarded. Relationally grounded. Theologically centered on restoration to
 					God as Father.
 				</p>
+			)}
+
+			<!-- Kevin Photo -->
+			{kevinPhotoUrl && (
+				<div class="mt-8 mb-8">
+					<div class="mx-auto w-32 h-32 rounded-full overflow-hidden shadow-md">
+						<img 
+							src={kevinPhotoUrl} 
+							alt="Kevin"
+							class="w-full h-full object-cover"
+						/>
+					</div>
+				</div>
 			)}
 
 			<!-- Contact -->
