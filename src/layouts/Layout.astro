@@ -8,7 +8,7 @@ interface Props {
 
 const {
 	title,
-	description = 'A formation-centered Soul Care Intensive for leaders whose outer success has outpaced their inner life.',
+	description,
 } = Astro.props;
 
 // Fetch siteSettings to get dynamic siteName
@@ -18,9 +18,10 @@ const siteSettingsQuery = `*[_type == "siteSettings"][0] {
 }`;
 
 const siteSettings = await sanityClient.fetch(siteSettingsQuery);
-const siteName = siteSettings?.siteName || 'Work On Yourself';
-const defaultDescription = siteSettings?.defaultMetaDescription || 'A formation-centered Soul Care Intensive for leaders whose outer success has outpaced their inner life.';
-const finalDescription = description && description !== 'A formation-centered Soul Care Intensive for leaders whose outer success has outpaced their inner life.' ? description : defaultDescription;
+const siteName = siteSettings.siteName;
+const defaultDescription = siteSettings.defaultMetaDescription;
+// Use passed description if provided, otherwise use site default
+const finalDescription = description || defaultDescription;
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
 ---
 
