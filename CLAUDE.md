@@ -13,6 +13,21 @@ This site: Work On Yourself | Repo: github.com/Spirit-Media-US/WOY | Domain: wor
 
 - Uses Biome for linting and Lefthook for git hooks
 
+## Status — as of 2026-03-24
+
+### Completed & Live on Main
+- Site live at workonyourself.com
+- Pages: Home (index.astro), 404
+- Sanity CMS fully wired: all content dynamic via siteSettings — no hardcoded content
+- Hardcoded content audit passed (A+ grade — fully Sanity-driven)
+- imageUrlBuilder updated to named export (deprecation warning resolved)
+- Git hygiene: Lefthook hooks (block-main-push, large-file blocker, secret scanner), full .gitignore
+
+### Still Pending
+- Astro 5 + Tailwind v4 upgrade (currently Astro 4.x)
+- Additional pages (coaching, about, contact) — scope TBD with Kevin
+- GHL coaching form integration (source:woy tag)
+
 ## Rules
 
 - All work goes to the **dev** branch — never push directly to main
