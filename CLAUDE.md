@@ -6,7 +6,7 @@ This site: Work On Yourself | Repo: github.com/Spirit-Media-US/WOY | Domain: wor
 
 ## Dev Commands
 
-- `npm run dev` — local preview at localhost:4321
+- `npm run dev` — local preview at localhost:4324
 - `npm run build` — runs `astro check && astro build`
 
 ## Notes
