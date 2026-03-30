@@ -1,20 +1,19 @@
 ---
-import { sanityClient } from '../lib/sanity';
+import { sanityClient, urlFor } from '../lib/sanity';
 
 interface Props {
 	title: string;
 	description?: string;
+	noindex?: boolean;
 }
 
-const {
-	title,
-	description,
-} = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 
 // Fetch siteSettings to get dynamic siteName
 const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   siteName,
-  defaultMetaDescription
+  defaultMetaDescription,
+  heroImage
 }`;
 
 const siteSettings = await sanityClient.fetch(siteSettingsQuery);
@@ -23,6 +22,10 @@ const defaultDescription = siteSettings.defaultMetaDescription;
 // Use passed description if provided, otherwise use site default
 const finalDescription = description || defaultDescription;
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+const ogImageUrl = siteSettings?.heroImage
+	? urlFor(siteSettings.heroImage).width(1200).height(630).url()
+	: null;
+const canonicalUrl = Astro.url.href;
 ---
 
 <!doctype html>
@@ -38,6 +41,9 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
 		<meta property="og:description" content={finalDescription} />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={siteName} />
+		<meta property="og:url" content={canonicalUrl} />
+		{ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+		{noindex && <meta name="robots" content="noindex" />}
 
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />

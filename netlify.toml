@@ -30,6 +30,16 @@
 [context.branch-deploy]
   command = "npm run build"
 
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cdn.sanity.io https://assets.spiritmediapublishing.com data:; connect-src 'self' https://u8tg0g1c.api.sanity.io; frame-ancestors 'self'"
+
 # Redirect www to non-www
 [[redirects]]
   from = "https://www.workonyourself.com/*"
