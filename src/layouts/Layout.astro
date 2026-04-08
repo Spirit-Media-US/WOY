@@ -55,6 +55,15 @@ const canonicalUrl = Astro.url.href;
 
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{fullTitle}</title>
+
+		<!-- Google Analytics GA4 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-W3R21TNHTX"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-W3R21TNHTX');
+		</script>
 	</head>
 	<body
 		class="min-h-screen font-[--font-body] text-[--color-slate-deep] bg-[--color-cream] antialiased"
