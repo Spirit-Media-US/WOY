@@ -1,7 +1,7 @@
 ---
+import { PortableText } from 'astro-portabletext';
 import Layout from '../layouts/Layout.astro';
 import { sanityClient, urlFor } from '../lib/sanity';
-import { PortableText } from 'astro-portabletext';
 
 // Fetch site settings
 const siteSettingsQuery = `*[_type == "siteSettings"][0] {
@@ -47,6 +47,18 @@ const kevinPhotoUrl = siteSettings?.kevinPhoto ? urlFor(siteSettings.kevinPhoto)
 ---
 
 <Layout title={title} description={description}>
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Work On Yourself",
+			"url": "https://workonyourself.com",
+			"description": description,
+			"founder": { "@type": "Person", "name": "Kevin White" },
+			"areaServed": "Worldwide",
+			"serviceType": ["Coaching", "Personal Development", "Leadership Training"]
+		})}></script>
+	</Fragment>
 	<main class="flex min-h-screen flex-col items-center justify-center px-6 text-center">
 		<div class="max-w-2xl">
 			<!-- Hero Image -->
