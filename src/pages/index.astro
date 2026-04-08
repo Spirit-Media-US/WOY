@@ -19,7 +19,9 @@ const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   applicationUrl,
   facebook,
   instagram,
-  youtube
+  youtube,
+  baseUrl,
+  founderName
 }`;
 
 const testimonialQuery = `*[_type == "testimonial"] | order(order asc, _createdAt desc) {
@@ -44,6 +46,8 @@ const applicationUrl = siteSettings.applicationUrl;
 const companyLegalName = siteSettings.companyLegalName;
 const heroImageUrl = siteSettings?.heroImage ? urlFor(siteSettings.heroImage).url() : null;
 const kevinPhotoUrl = siteSettings?.kevinPhoto ? urlFor(siteSettings.kevinPhoto).url() : null;
+const baseUrl = siteSettings.baseUrl;
+const founderName = siteSettings.founderName;
 ---
 
 <Layout title={title} description={description}>
@@ -51,10 +55,10 @@ const kevinPhotoUrl = siteSettings?.kevinPhoto ? urlFor(siteSettings.kevinPhoto)
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "Organization",
-			"name": "Work On Yourself",
-			"url": "https://workonyourself.com",
+			"name": title,
+			"url": baseUrl,
 			"description": description,
-			"founder": { "@type": "Person", "name": "Kevin White" },
+			...(founderName && { "founder": { "@type": "Person", "name": founderName } }),
 			"areaServed": "Worldwide",
 			"serviceType": ["Coaching", "Personal Development", "Leadership Training"]
 		})}></script>

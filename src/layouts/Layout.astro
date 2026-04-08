@@ -9,16 +9,18 @@ interface Props {
 
 const { title, description, noindex = false } = Astro.props;
 
-// Fetch siteSettings to get dynamic siteName
+// Fetch siteSettings to get dynamic siteName, analytics ID, and meta tags
 const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   siteName,
   defaultMetaDescription,
-  heroImage
+  heroImage,
+  googleAnalyticsId
 }`;
 
 const siteSettings = await sanityClient.fetch(siteSettingsQuery);
 const siteName = siteSettings.siteName;
 const defaultDescription = siteSettings.defaultMetaDescription;
+const googleAnalyticsId = siteSettings.googleAnalyticsId;
 // Use passed description if provided, otherwise use site default
 const finalDescription = description || defaultDescription;
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
@@ -58,13 +60,17 @@ const canonicalUrl = Astro.url.href;
 		<slot name="head" />
 
 		<!-- Google Analytics GA4 -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-W3R21TNHTX"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-W3R21TNHTX');
-		</script>
+		{googleAnalyticsId && (
+			<>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+				<script define:vars={{googleAnalyticsId}}>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+					gtag('config', googleAnalyticsId);
+				</script>
+			</>
+		)}
 	</head>
 	<body
 		class="min-h-screen font-[--font-body] text-[--color-slate-deep] bg-[--color-cream] antialiased"
