@@ -4,6 +4,10 @@
 
 This site: Work On Yourself | Repo: github.com/Spirit-Media-US/WOY | Domain: workonyourself.com | Sanity ID: u8tg0g1c | R2 bucket: n/a
 
+**Migration protocol:** /home/deploy/bin/tools-api/pipelines/migration/CLAUDE.md
+**Sanity Studio:** Embedded at workonyourself.com/studio/ (static build)
+**Infrastructure:** Deploy webhook wired, CORS origins configured, studio deployed
+
 ## Dev Commands
 
 - `npm run dev` — local preview at localhost:4324
@@ -22,12 +26,14 @@ Then run: `git checkout dev && git pull origin dev`
 
 - Uses Biome for linting and Lefthook for git hooks
 
-## Status — as of 2026-03-24
+## Status — as of 2026-04-08
 
 ### Completed & Live on Main
 - Site live at workonyourself.com
 - Pages: Home (index.astro), 404
 - Sanity CMS fully wired: all content dynamic via siteSettings — no hardcoded content
+- Sanity Studio embedded at /studio with deploy webhook and CORS configured
+- GA4 analytics added
 - Hardcoded content audit passed (A+ grade — fully Sanity-driven)
 - imageUrlBuilder updated to named export (deprecation warning resolved)
 - Git hygiene: Lefthook hooks (block-main-push, large-file blocker, secret scanner), full .gitignore
