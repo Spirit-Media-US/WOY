@@ -29,7 +29,6 @@ pre-push:
         if [ "$BRANCH" = "main" ]; then
           echo "❌ BLOCKED: Direct pushes to main are not allowed."
           echo "   Team: open a PR from dev → main for Kevin to approve."
-          echo "   Kevin: Claude will use gh pr create + gh pr merge --admin to deploy instantly."
           exit 1
         fi
       skip:

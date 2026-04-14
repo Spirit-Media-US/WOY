@@ -16,7 +16,7 @@ This site: Work On Yourself | Repo: github.com/Spirit-Media-US/WOY | Domain: wor
 ## Mandatory — Before Starting Work
 Always start Claude sessions from inside this directory:
 ```
-cd ~/Sites/WOY && claude
+cd /srv/sites/WOY && claude
 ```
 Running Claude from ~/ or ~/Sites/ bypasses this project's CLAUDE.md. A pre-edit hook enforces this, but following the workflow prevents warnings and ensures all project rules are loaded.
 

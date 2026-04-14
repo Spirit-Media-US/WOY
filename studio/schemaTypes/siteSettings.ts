@@ -84,10 +84,29 @@ export default {
       title: 'Instagram URL', 
       type: 'url' 
     },
-    { 
-      name: 'youtube', 
-      title: 'YouTube URL', 
-      type: 'url' 
+    {
+      name: 'youtube',
+      title: 'YouTube URL',
+      type: 'url'
+    },
+    {
+      name: 'googleAnalyticsId',
+      title: 'Google Analytics ID',
+      type: 'string',
+      description: 'GA4 tracking ID (e.g., G-XXXXXXXXXX)'
+    },
+    {
+      name: 'founderName',
+      title: 'Founder / Primary Person Name',
+      type: 'string',
+      description: 'Used in Schema.org structured data'
+    },
+    {
+      name: 'baseUrl',
+      title: 'Base URL',
+      type: 'string',
+      description: 'Full site URL (e.g., https://workonyourself.com)',
+      validation: (Rule: any) => Rule.required()
     },
   ],
 }
