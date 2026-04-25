@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "rm -rf public/studio && sanity build public/studio --yes && astro build",
+		"build": "node scripts/sync-100club-registry.mjs && rm -rf public/studio && sanity build public/studio --yes && astro build",
 		"preview": "astro preview",
 		"check": "biome check --write",
 		"prepare": "lefthook install",
