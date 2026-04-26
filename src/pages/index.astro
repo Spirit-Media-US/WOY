@@ -1,5 +1,6 @@
 ---
 import { PortableText } from 'astro-portabletext';
+import HundredClubBadge from '../components/HundredClubBadge.astro';
 import Layout from '../layouts/Layout.astro';
 import { sanityClient, urlFor } from '../lib/sanity';
 
@@ -161,6 +162,7 @@ const founderName = siteSettings.founderName;
 			<!-- Footer -->
 			<p class="mt-16 text-xs tracking-wide text-[--color-slate-soft]/60">
 				&copy; {new Date().getFullYear()} {companyLegalName}
+				<HundredClubBadge />
 			</p>
 		</div>
 	</main>
