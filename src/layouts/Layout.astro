@@ -37,6 +37,7 @@ const canonicalUrl = Astro.url.href;
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={finalDescription} />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalUrl} />
 
 		<!-- Open Graph -->
 		<meta property="og:title" content={fullTitle} />
