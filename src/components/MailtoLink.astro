@@ -6,14 +6,17 @@
 // the client. Defeats most static scraper bots without breaking accessibility.
 interface Props {
 	email: string;
+	subject?: string;
+	body?: string;
 	class?: string;
+	[key: string]: any;
 }
 
-const { email, class: className } = Astro.props;
+const { email, subject, body, class: className, ...rest } = Astro.props;
 const [user, domain] = email.split('@');
 ---
 
-<a href="#" data-mu={user} data-md={domain} class={className}>
+<a href="#" data-mu={user} data-md={domain} data-ms={subject} data-mb={body} class={className} {...rest}>
 	<slot />
 </a>
 
@@ -22,7 +25,8 @@ const [user, domain] = email.split('@');
 		document.querySelectorAll<HTMLAnchorElement>('a[data-mu][data-md]').forEach((el) => {
 			const u = el.dataset.mu;
 			const d = el.dataset.md;
-			if (u && d) el.href = `mailto:${u}@${d}`;
+			const q = [el.dataset.ms && `subject=${encodeURIComponent(el.dataset.ms)}`, el.dataset.mb && `body=${encodeURIComponent(el.dataset.mb)}`].filter(Boolean).join('&');
+			if (u && d) el.href = `mailto:${u}@${d}${q ? `?${q}` : ''}`;
 		});
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireMailto);
