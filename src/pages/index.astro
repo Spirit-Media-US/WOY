@@ -1,6 +1,7 @@
 ---
 import { PortableText } from 'astro-portabletext';
 import HundredClubBadge from '../components/HundredClubBadge.astro';
+import MailtoLink from '../components/MailtoLink.astro';
 import Layout from '../layouts/Layout.astro';
 import { sanityClient, urlFor } from '../lib/sanity';
 
@@ -125,12 +126,19 @@ const founderName = siteSettings.founderName;
 
 			<!-- Contact -->
 			<div class="mt-12">
-				<a
-					href={applicationUrl}
-					class="inline-block border-b border-[--color-amber-accent]/50 pb-0.5 text-sm font-semibold uppercase tracking-widest text-[--color-amber-deep] transition-colors hover:border-[--color-amber-accent] hover:text-[--color-amber-accent]"
-				>
-					Begin the Conversation
-				</a>
+				{/* Kevin 2026-11-20 RULE: never put an address in the page source — a mailto: CTA from Sanity goes through MailtoLink. */}
+				{String(applicationUrl).startsWith('mailto:') ? (
+					<MailtoLink email={String(applicationUrl).slice(7).split('?')[0]} class="inline-block border-b border-[--color-amber-accent]/50 pb-0.5 text-sm font-semibold uppercase tracking-widest text-[--color-amber-deep] transition-colors hover:border-[--color-amber-accent] hover:text-[--color-amber-accent]">
+						Begin the Conversation
+					</MailtoLink>
+				) : (
+					<a
+						href={applicationUrl}
+						class="inline-block border-b border-[--color-amber-accent]/50 pb-0.5 text-sm font-semibold uppercase tracking-widest text-[--color-amber-deep] transition-colors hover:border-[--color-amber-accent] hover:text-[--color-amber-accent]"
+					>
+						Begin the Conversation
+					</a>
+				)}
 			</div>
 
 			<!-- Testimonials Section -->
